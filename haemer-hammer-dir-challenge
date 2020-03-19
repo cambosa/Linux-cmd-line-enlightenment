@@ -28,3 +28,8 @@ $ ls -rd 2.0.00.00_devel* | tail -n +3
 2.0.00.00_devel-20100906
 
 =============================================================================
+PIÈCE DE RÉSISTANCE
+
+for dir in $(ls | cut -d- -f1 | uniq); do
+    ls -rd $dir* | tail -n +3
+done | xargs rm -rf
