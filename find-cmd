@@ -31,7 +31,9 @@ find /usr/include -type f | xargs grep -l PATH_MAX
     time find /usr/include -type f | xargs grep -l PATH_MAX
     #Takes approximately 0.053 seconds
     
-# If file path happens to contain spaces, you can leverage the -0 print option of xargs parses null characters ("spaces")
+# If file path happens to contain spaces, you can leverage the -0 print option of xargs for \000
+# Append a null at the end of a filename, and use that as the delimiter instead of a space between found objects
+# This allows the next command in the pipeline accurately find the separator between filenames, especially ones with spaces
 find /usr/include -type f | xargs -0 grep -l PATH_MAX
 
 #Which is faster?
