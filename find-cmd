@@ -1,0 +1,40 @@
+find /dev -type f
+    There really shouldn’t be many regular files under /dev
+    
+find / -xdev -type d -name .\*
+    Dot directory names uncommon outside of user home dirs
+    
+find / -xdev -mtime -7
+    Timestamps could be altered, but mostly they aren’t
+    
+find / -xdev –type f \( -perm -04000 –o –perm -02000 \)
+    Do you know where all your SUID/SGID progs are?
+    
+find / -xdev –type d
+  \( -name bin –o –name sbin –o –name lib \) | wc –l
+    How many do you think we’ll find?
+    
+find /var/log –type f –mtime +7 –exec gzip {} \;
+    Works, but slow because –exec spawns a shell for each file found
+    
+find /var/log –type f –mtime +7 | xargs gzip
+    xargs collects file names into groups to limit number of calls to gzip
+    
+find /car/log/*-20* -type f -mtime +14 | xargs gzip
+    Faster command, due to only gzip one to two files instead of doing all of them  
+    
+find /usr/include -type f -exec grep -l PATH_MAX {} \;
+    time find /usr/include -type f -exec grep -l PATH_MAX {} \;
+    #Takes approximately 5.847 seconds to run
+    
+find /usr/include -type f | xargs grep -l PATH_MAX
+    time find /usr/include -type f | xargs grep -l PATH_MAX
+    #Takes approximately 0.053 seconds
+    
+# If file path happens to contain spaces, you can leverage the -0 print option of xargs parses null characters ("spaces")
+find /usr/include -type f | xargs -0 grep -l PATH_MAX
+
+#Which is faster?
+grep –rl PATH_MAX /usr/include
+find /usr/include –type f –exec grep –l PATH_MAX {} \;
+find /usr/include –type f | xargs grep –l PATH_MAX
