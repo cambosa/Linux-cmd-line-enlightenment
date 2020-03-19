@@ -1,0 +1,30 @@
+Directories named <version>-<date>:
+$ ls
+1.2.00.00_devel-20190903 2.0.00.00_devel-20190906
+1.2.00.00_devel-20190905 2.0.00.00_devel-20190907
+1.2.00.00_devel-20190907 2.0.00.00_devel-20190908
+1.2.00.00_devel-20190909 2.0.00.00_devel-20190909
+1.2.00.00_devel-20190910 2.0.00.00_devel-20190910
+Remove all but the two most recent copies of each version group
+=============================================================================
+Steps:
+- Get the version numbers
+- Filter out the two most recent directories
+- Remove the directories
+=============================================================================
+Create test data:
+mkdir testdir
+for vers in 1.0.0 
+=============================================================================
+Get the version numbers
+$ ls | cut -d- -f1 | uniq
+1.2.00.00_devel
+2.0.00.00_devel
+
+Filter out the two most recent directories with a clever trick
+$ ls -rd 2.0.00.00_devel* | tail -n +3
+2.0.00.00_devel-20100908
+2.0.00.00_devel-20100907
+2.0.00.00_devel-20100906
+
+=============================================================================
