@@ -1,0 +1,10 @@
+ps -ef | awk '{print $1}' | sort | uniq -c | sort -n
+  …
+1 nobody
+1 polkitd
+1 rtkit
+1 UID
+2 avahi
+2 postfix
+57 hal
+153 root
