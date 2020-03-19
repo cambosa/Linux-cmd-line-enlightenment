@@ -20,7 +20,7 @@ find /var/log –type f –mtime +7 –exec gzip {} \;
 find /var/log –type f –mtime +7 | xargs gzip
     xargs collects file names into groups to limit number of calls to gzip
     
-find /car/log/*-20* -type f -mtime +14 | xargs gzip
+find /var/log/*-20* -type f -mtime +14 | xargs gzip
     Faster command, due to only gzip one to two files instead of doing all of them  
     
 find /usr/include -type f -exec grep -l PATH_MAX {} \;
